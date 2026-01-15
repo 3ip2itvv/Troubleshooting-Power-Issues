@@ -1,94 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Technician Troubleshooting</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            width: 400px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .option {
-            margin: 15px 0;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .next-btn {
-            margin-top: 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .next-btn.enabled {
-            opacity: 1;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Technician Troubleshooting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 420px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+    h1 { margin: 0 0 18px; }
+    .option { text-align: left; margin: 12px 0; padding: 10px; border: 1px solid #e6e6e6; border-radius: 8px; }
+    .option label { margin-left: 8px; }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    #nextBtn {
+      background: #007bff;
+      color: white;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #nextBtn.enabled {
+      opacity: 1;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-
-<div class="container">
+  <div class="container">
     <h1>Select Issue</h1>
 
     <div class="option">
-        <input type="radio" name="issue" id="noPower" value="no-power.html">
-        <label for="noPower">No Power</label>
+      <input type="radio" name="issue" id="noPower" value="no-power.html">
+      <label for="noPower">No Power</label>
     </div>
 
     <div class="option">
-        <input type="radio" name="issue" id="noOutput" value="no-output.html">
-        <label for="noOutput">No Output</label>
+      <input type="radio" name="issue" id="noOutput" value="no-output.html">
+      <label for="noOutput">No Output</label>
     </div>
 
-    <button id="nextBtn" class="next-btn">Next</button>
-</div>
+    <button id="nextBtn" disabled>Next</button>
+  </div>
 
-<script>
+  <script>
     const radios = document.querySelectorAll('input[name="issue"]');
     const nextBtn = document.getElementById('nextBtn');
 
     radios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            nextBtn.classList.add('enabled');
-            nextBtn.disabled = false;
-        });
+      radio.addEventListener('change', () => {
+        nextBtn.disabled = false;
+        nextBtn.classList.add('enabled');
+      });
     });
 
-    nextBtn.addEventListener('click', () => {
-        const selected = document.querySelector('input[name="issue"]:checked');
-        if (selected) {
-            window.location.href = selected.value;
-        }
-    });
-</script>
-
-</body>
-</html>
-
+    nextBtn.addEventListener('click',
