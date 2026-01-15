@@ -3,20 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Technician Troubleshooting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <!-- Auto redirect -->
-    <meta http-equiv="refresh" content="0; url=https://docs.google.com/forms/d/1spk62nVrB_X19fWlxVPaeUDMpXjf72nE8c_0kXiJ13A/viewform">
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-    <!-- Fallback -->
-    <script>
-        window.location.href = "https://docs.google.com/forms/d/1spk62nVrB_X19fWlxVPaeUDMpXjf72nE8c_0kXiJ13A/viewform";
-    </script>
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            margin: 15px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .next-btn.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <p>If you are not redirected automatically, 
-        <a href="https://docs.google.com/forms/d/1spk62nVrB_X19fWlxVPaeUDMpXjf72nE8c_0kXiJ13A/viewform">
-            click here to open the troubleshooting form
-        </a>.
-    </p>
+
+<div class="container">
+    <h1>Select Issue</h1>
+
+    <div class="option">
+        <input type="radio" name="issue" id="noPower" value="no-power.html">
+        <label for="noPower">No Power</label>
+    </div>
+
+    <div class="option">
+        <input type="radio" name="issue" id="noOutput" value="no-output.html">
+        <label for="noOutput">No Output</label>
+    </div>
+
+    <button id="nextBtn" class="next-btn">Next</button>
+</div>
+
+<script>
+    const radios = document.querySelectorAll('input[name="issue"]');
+    const nextBtn = document.getElementById('nextBtn');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            nextBtn.classList.add('enabled');
+            nextBtn.disabled = false;
+        });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        const selected = document.querySelector('input[name="issue"]:checked');
+        if (selected) {
+            window.location.href = selected.value;
+        }
+    });
+</script>
+
 </body>
 </html>
+
