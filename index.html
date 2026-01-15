@@ -38,6 +38,10 @@
       cursor: pointer;
     }
 
+    .option:hover {
+      background: #f9fafb;
+    }
+
     .option input {
       margin-right: 8px;
     }
@@ -51,6 +55,7 @@
       border: none;
       background: #007bff;
       color: white;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -73,21 +78,7 @@
   </div>
 
   <script>
-    const radios = document.querySelectorAll('input[name="issue"]');
-    const nextBtn = document.getElementById('nextBtn');
-
-    // Start visually disabled
-    nextBtn.style.opacity = "0.5";
-    nextBtn.style.cursor = "not-allowed";
-
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        nextBtn.style.opacity = "1";
-        nextBtn.style.cursor = "pointer";
-      });
-    });
-
-    nextBtn.addEventListener('click', () => {
+    document.getElementById("nextBtn").addEventListener("click", function () {
       const selected = document.querySelector('input[name="issue"]:checked');
 
       if (!selected) {
