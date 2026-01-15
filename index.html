@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Technician Troubleshooting</title>
 
   <style>
@@ -11,13 +12,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 24px;
     }
 
     .container {
       background: #ffffff;
-      padding: 30px;
+      padding: 28px;
       border-radius: 12px;
       width: 420px;
       text-align: center;
@@ -25,25 +27,24 @@
     }
 
     h1 {
-      margin-top: 0;
-      margin-bottom: 20px;
+      margin: 0 0 18px;
     }
 
     .option {
       text-align: left;
       margin: 12px 0;
-      padding: 12px;
+      padding: 14px;
       border: 1px solid #e6e6e6;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
     }
 
     .option:hover {
       background: #f9fafb;
-    }
-
-    .option input {
-      margin-right: 8px;
     }
 
     button {
@@ -51,11 +52,19 @@
       padding: 14px;
       font-size: 16px;
       margin-top: 18px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       background: #007bff;
       color: white;
       cursor: pointer;
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      color: #b00020;
+      font-size: 14px;
+      text-align: left;
     }
   </style>
 </head>
@@ -64,25 +73,46 @@
   <div class="container">
     <h1>Select Issue</h1>
 
-    <div class="option">
-      <input type="radio" name="issue" id="noPower" value="no-power.html">
-      <label for="noPower">No Power</label>
-    </div>
+    <form id="issueForm">
+      <div class="option" data-target="no-power.html">
+        <input type="radio" name="issue" id="noPower" value="no-power.html" />
+        <label for="noPower">No Power</label>
+      </div>
 
-    <div class="option">
-      <input type="radio" name="issue" id="noOutput" value="no-output.html">
-      <label for="noOutput">No Output</label>
-    </div>
+      <div class="option" data-target="no-output.html">
+        <input type="radio" name="issue" id="noOutput" value="no-output.html" />
+        <label for="noOutput">No Output</label>
+      </div>
 
-    <button id="nextBtn">Next</button>
+      <button type="submit" id="nextBtn">Next</button>
+
+      <div class="error" id="errorMsg">
+        Please select an issue before continuing.
+      </div>
+    </form>
   </div>
 
   <script>
-    document.getElementById("nextBtn").addEventListener("click", function () {
+    // Make the whole option row clickable (not just the tiny radio)
+    document.querySelectorAll(".option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        const target = opt.getAttribute("data-target");
+        const radio = opt.querySelector('input[type="radio"]');
+        radio.checked = true;
+        console.log("Selected:", target);
+        document.getElementById("errorMsg").style.display = "none";
+      });
+    });
+
+    // Submit handler (more reliable than button click handler)
+    document.getElementById("issueForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
       const selected = document.querySelector('input[name="issue"]:checked');
+      console.log("Submit sees selected:", selected ? selected.value : "(none)");
 
       if (!selected) {
-        alert("Please select an issue before continuing.");
+        document.getElementById("errorMsg").style.display = "block";
         return;
       }
 
